@@ -15,6 +15,21 @@ function InputBox({
 }) {
    const amountId = useId();
 
+    const handleAmountChange = (e) => {
+    const value = e.target.value;
+
+    // ✅ Allow empty input
+    if (value === "") {
+      onAmountChange("");
+      return;
+    }
+
+    // ✅ Allow only numbers & decimal values
+    if (!isNaN(value)) {
+      onAmountChange(Number(value));
+    }
+  };
+
     return (
         <div className={`bg-white p-3 rounded-lg text-sm flex ${className}`}>
             <div className="w-1/2">
@@ -28,7 +43,7 @@ function InputBox({
                     placeholder="Amount"
                     value={amount}
                     disabled={amountDisable}
-                    onChange={(e) => onAmountChange && onAmountChange(Number(e.target.value))}
+                    onChange={handleAmountChange}
                 />
             </div>
             <div className="w-1/2 flex flex-wrap justify-end text-right">
